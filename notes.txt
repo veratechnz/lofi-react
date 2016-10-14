@@ -1,0 +1,6 @@
+Used a map on CardA to loop and render multiple cards from a json file. 
+
+Need to go over Ingo's todo's
+Cleaner rendering of multiple elements
+Ability to use and invoke functions within jsx
+Passed properties down the component chain 

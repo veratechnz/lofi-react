@@ -16,6 +16,7 @@ var CardA = React.createClass({
 	  								</div>
 	  								<div className="card-content">
 	  						  			<p>{thatiz.name}</p>
+	  						  			<p>{thatiz.city}</p>
 	  						  		</div>
 	  						  		<div className="card-action">
 	  						  		  <a href="#">{thatiz.address.street}</a>
