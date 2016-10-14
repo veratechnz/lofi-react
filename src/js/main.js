@@ -101,8 +101,8 @@ Standards:
 		};
 
 	// Invoke UI js elements
-	// UI.menus();	
-	// UI.init();
+	UI.menus();	
+	UI.init();
 
 })(); //iffe ends
 

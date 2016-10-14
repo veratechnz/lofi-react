@@ -36493,43 +36493,94 @@ var ReactDOM = require('react-dom');
 // React Components
 var Sidenav = require('./Sidenav');
 var Horizontalnav = require('./Horizontalnav');
+var Mobilenav = require('./Mobilenav');
 var Cardwrapper = require('./Cardwrapper');
 
 var App = React.createClass({displayName: "App",
+  
+  getInitialState: function(){
+  	return{
+  		testData: []
+  	};
+  },
+
+  componentDidMount: function(){
+  	var pullData = this.serverRequest =  $.get('data/test.json', function(result) {
+  		this.setState({ testData: result }); 
+     }.bind(this));  	
+  },
+
+  componentWillUnmount: function() {
+    this.serverRequest.abort();
+  },
+
   render: function() {
     return (
-		     React.createElement("div", {className: "app-container row over-row"}, 
-				React.createElement(Sidenav, null), 
-				React.createElement(Horizontalnav, null), 
-				React.createElement(Cardwrapper, null)	     	
-		     )  
+      		  React.createElement("div", {className: "app-container row over-row"}, 
+      				React.createElement(Sidenav, null), 
+      				React.createElement(Horizontalnav, null), 
+              React.createElement(Mobilenav, null), 
+      				React.createElement(Cardwrapper, {dataAccess:  this.state.testData})	  	
+      		  )  
     	);
   }
+
 });
 
 module.exports = App;
-},{"./Cardwrapper":242,"./Horizontalnav":243,"./Sidenav":244,"react":236,"react-dom":4}],241:[function(require,module,exports){
+},{"./Cardwrapper":242,"./Horizontalnav":243,"./Mobilenav":244,"./Sidenav":245,"react":236,"react-dom":4}],241:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
 var CardA = React.createClass({displayName: "CardA",
   render: function() {
-    return (
 
-	  	React.createElement("div", {className: "card"}, 
-	  	  React.createElement("div", {className: "card-image"}, 
-	  	    React.createElement("img", {src: "img/card-a.jpg"})
-	  	  ), 
-	  	  React.createElement("div", {className: "card-content"}, 
-	  	    React.createElement("p", null, "CARD A")
-	  	  ), 
-	  	  React.createElement("div", {className: "card-action"}, 
-	  	    React.createElement("a", {href: "#"}, "This is a link")
-	  	  )
-	  	)
+  	var theData = this.props.dataAccess;
 
-    );
+  	return (
+  		React.createElement("div", {className: "row"}, 
+  		  		theData.map(function(thatiz, index){
+  		  			return 	React.createElement("div", {className: "col s4"}, 
+	  		  					React.createElement("div", {className: "card", key:  index }, 
+	  								React.createElement("div", {className: "card-image"}, 
+	  								  React.createElement("img", {src: "img/card-a.jpg"})
+	  								), 
+	  								React.createElement("div", {className: "card-content"}, 
+	  						  			React.createElement("p", null, thatiz.name)
+	  						  		), 
+	  						  		React.createElement("div", {className: "card-action"}, 
+	  						  		  React.createElement("a", {href: "#"}, thatiz.address.street)
+	  						  		)
+	  							)
+  							);
+  		  		})
+  		 )
+
+  	);
+
+
+  	// var nest = [];
+  	// theData.forEach( function (arrayItem)
+  	// {
+  	// 	var x = arrayItem.name;
+  	// 	console.log(x);
+	  //   nest.push(
+			// <div className="card">
+			// 	<div className="card-image">
+			// 	  <img src="img/card-a.jpg" />
+			// 	</div>
+			// 	<div className="card-content">
+		 //  			<p>{arrayItem.name}</p>
+		 //  		</div>
+		 //  		<div className="card-action">
+		 //  		  <a href="#">This is a link</a>
+		 //  		</div>
+	  // 		</div>
+	  //   );
+  	// });
+
   }
+
 });
 
 module.exports = CardA;
@@ -36541,43 +36592,25 @@ var ReactDOM = require('react-dom');
 var CardA = require('./CardA');
 
 var Cardwrapper= React.createClass({displayName: "Cardwrapper",
+
   render: function() {
+    // var theData = this.props.dataAccess;
+    // console.log(theData);
+
+
+
+    // theData.forEach( function (arrayItem)
+    // {
+    //     var x = arrayItem.name;
+    //     console.log(x);
+    // });
+
+
     return (
     	React.createElement("div", {className: "col s10 card-wrapper", id: "cardWrapper"}, 
-    	  React.createElement("div", {className: "row"}, 
 
-    	    React.createElement("div", {className: "col s4"}, 
-                React.createElement(CardA, null)
-    	    ), 
-    	    React.createElement("div", {className: "col s4"}, 
-    	      React.createElement("div", {className: "card"}, 
-    	        React.createElement("div", {className: "card-image"}, 
-    	          React.createElement("img", {src: "img/card-a.jpg"})
-    	        ), 
-    	        React.createElement("div", {className: "card-content"}, 
-    	          React.createElement("p", null, "I am a very simple card. I am good at containing small bits of information." + ' ' +
-    	            "I am convenient because I require little markup to use effectively.")
-    	        ), 
-    	        React.createElement("div", {className: "card-action"}, 
-    	          React.createElement("a", {href: "#"}, "This is a link")
-    	        )
-    	      )
-    	    ), 
-    	    React.createElement("div", {className: "col s4"}, 
-    	      React.createElement("div", {className: "card"}, 
-    	        React.createElement("div", {className: "card-image"}, 
-    	          React.createElement("img", {src: "img/card-a.jpg"})
-    	        ), 
-    	        React.createElement("div", {className: "card-content"}, 
-    	          React.createElement("p", null, "I am a very simple card. I am good at containing small bits of information." + ' ' +
-    	            "I am convenient because I require little markup to use effectively.")
-    	        ), 
-    	        React.createElement("div", {className: "card-action"}, 
-    	          React.createElement("a", {href: "#"}, "This is a link")
-    	        )
-    	      )
-    	    )
-    	  ), 
+             React.createElement(CardA, {dataAccess:  this.props.dataAccess}), 
+
 
     	  React.createElement("div", {className: "row row-b"}, 
     	    React.createElement("div", {className: "col s4"}, 
@@ -36749,6 +36782,9 @@ var Cardwrapper= React.createClass({displayName: "Cardwrapper",
     	    
     	  )
     	) 
+
+
+
     );
   }
 });
@@ -36787,6 +36823,32 @@ var Horizontalnav= React.createClass({displayName: "Horizontalnav",
 
 module.exports = Horizontalnav;
 },{"react":236,"react-dom":4}],244:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var Mobilenav = React.createClass({displayName: "Mobilenav",
+  render: function() {
+    return (
+
+      React.createElement("ul", {id: "slide-out", className: "side-nav"}, 
+        React.createElement("div", {className: "mobile-close"}, 
+          React.createElement("a", {href: "#", className: "mobile-close"}, 
+            React.createElement("i", {className: "material-icons closer", id: "closer"}, "close")
+          )
+        ), 
+        React.createElement("li", null, React.createElement("a", {href: "#!"}, React.createElement("i", {className: "material-icons"}, "cloud"), "First Link With Icon")), 
+        React.createElement("li", null, React.createElement("a", {href: "#!"}, "Second Link")), 
+        React.createElement("li", null, React.createElement("div", {className: "divider"})), 
+        React.createElement("li", null, React.createElement("a", {className: "subheader"}, "Subheader")), 
+        React.createElement("li", null, React.createElement("a", {className: "waves-effect", href: "#!"}, "Third Link With Waves"))
+      )
+
+    );
+  }
+});
+
+module.exports = Mobilenav;
+},{"react":236,"react-dom":4}],245:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -36857,7 +36919,7 @@ var Sidenav= React.createClass({displayName: "Sidenav",
 });
 
 module.exports = Sidenav;
-},{"react":236,"react-dom":4}],245:[function(require,module,exports){
+},{"react":236,"react-dom":4}],246:[function(require,module,exports){
 // All Imports
 // 
 //jQuery
@@ -36961,11 +37023,11 @@ Standards:
 		};
 
 	// Invoke UI js elements
-	// UI.menus();	
-	// UI.init();
+	UI.menus();	
+	UI.init();
 
 })(); //iffe ends
-},{"./App":240,"./namespace.js":246,"jquery":2,"materialize":3,"react":236,"react-dom":4,"react-router":34,"slideout":237}],246:[function(require,module,exports){
+},{"./App":240,"./namespace.js":247,"jquery":2,"materialize":3,"react":236,"react-dom":4,"react-router":34,"slideout":237}],247:[function(require,module,exports){
 exports.nm = function(){
 
 	// create the root namespace and making sure we're not overwriting it
@@ -37004,4 +37066,4 @@ exports.nm = function(){
 	return UI;
 
 };
-},{}]},{},[245]);
+},{}]},{},[246]);

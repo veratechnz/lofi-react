@@ -5,43 +5,25 @@ var ReactDOM = require('react-dom');
 var CardA = require('./CardA');
 
 var Cardwrapper= React.createClass({
+
   render: function() {
+    // var theData = this.props.dataAccess;
+    // console.log(theData);
+
+
+
+    // theData.forEach( function (arrayItem)
+    // {
+    //     var x = arrayItem.name;
+    //     console.log(x);
+    // });
+
+
     return (
     	<div className="col s10 card-wrapper" id="cardWrapper"> 
-    	  <div className="row">
 
-    	    <div className="col s4">
-                <CardA />
-    	    </div>
-    	    <div className="col s4">
-    	      <div className="card">
-    	        <div className="card-image">
-    	          <img src="img/card-a.jpg" />
-    	        </div>
-    	        <div className="card-content">
-    	          <p>I am a very simple card. I am good at containing small bits of information.
-    	            I am convenient because I require little markup to use effectively.</p>
-    	        </div>
-    	        <div className="card-action">
-    	          <a href="#">This is a link</a>
-    	        </div>
-    	      </div>
-    	    </div>
-    	    <div className="col s4">
-    	      <div className="card">
-    	        <div className="card-image">
-    	          <img src="img/card-a.jpg" />
-    	        </div>
-    	        <div className="card-content">
-    	          <p>I am a very simple card. I am good at containing small bits of information.
-    	            I am convenient because I require little markup to use effectively.</p>
-    	        </div>
-    	        <div className="card-action">
-    	          <a href="#">This is a link</a>
-    	        </div>
-    	      </div>
-    	    </div>
-    	  </div>
+             <CardA dataAccess= { this.props.dataAccess } />
+
 
     	  <div className="row row-b">
     	    <div className="col s4"> 
@@ -213,6 +195,9 @@ var Cardwrapper= React.createClass({
     	    
     	  </div> 
     	</div> 
+
+
+
     );
   }
 });
